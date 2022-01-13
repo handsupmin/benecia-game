@@ -166,6 +166,7 @@ inputText.addEventListener('keydown', function(e) {
 
                     if (score == goalScore) {
                         alert(level + "단계 성공!");
+                        alert("점수: " + score + "\n실패: " + fail);
                         levelClear();
                         is_it_clear = true;
                     }
