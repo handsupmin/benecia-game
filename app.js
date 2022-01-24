@@ -69,13 +69,14 @@ divFail.innerHTML = "실패: " + fail + " (목숨: " + LIFE + ")";
 btnStart.addEventListener("click", function() {
     if (fail == LIFE) {
         level = 0;
-        levelClear()
+        levelClear();
     }
+    
     if (isItRun == false) {
         startGame();
         isItRun = true;
     }
-})
+});
 
 function startGame() {
     alert(level + "단계 게임 시작!");
@@ -91,11 +92,12 @@ function dropWord() {
             + wordBox[getRandomIndex()] +"</div>";
         divContents.insertAdjacentHTML("beforeend", word);
         childList.push(divContents.lastChild);
+
         if (itItClear || fail == LIFE) {
-            clearChild()
+            clearChild();
             clearInterval(dropInterval);
         }
-    }, dropTick)
+    }, dropTick);
 }
 
 function downWord() {
@@ -104,6 +106,7 @@ function downWord() {
             targetChild = childList[i]
             var nowTop = Number(targetChild.style.top.replace("px",""))
             targetChild.style.top = (nowTop + 25) + "px" ;
+
             if (nowTop >= DEAD_LINE) {
                 if (divContents.contains(targetChild)) {
                     divContents.removeChild(targetChild);
@@ -112,6 +115,7 @@ function downWord() {
                 }
             }
         }
+
         if (itItClear) {
             clearChild()
             clearInterval(downInterval);
@@ -129,6 +133,7 @@ function levelClear() {
         alert("게임을 모두 클리어 하셨습니다!");
         location.reload();
     }
+
     level++;
     btnStart.value = level + "단계 진행";
 
@@ -151,26 +156,30 @@ function clearChild() {
 textWord.addEventListener("keydown", function(e) {
     if (e.key === "Enter") {
         for (let i = 0; i < childList.length; i++) {
-            targetChild = childList[i]
+            targetChild = childList[i];
+
             if (textWord.value == targetChild.innerHTML) {
                 if (divContents.contains(targetChild)) {
                     divContents.removeChild(targetChild);
                     score += 1;
                     divScore.innerHTML = "점수: " + score + " (목표: " + goalScore + ")";
+
                     if (score == goalScore) {
                         alert(level + "단계 성공!");
                         alert("점수: " + score + "\n실패: " + fail);
                         levelClear();
                         itItClear = true;
-                        clearChild()
+                        clearChild();
                     }
+
                     break;
                 }
             }
         }
+
         textWord.value = "";
     }
-})
+});
 
 function getRandomPosition() {
     return Math.floor(Math.random() * 420) + 10;
